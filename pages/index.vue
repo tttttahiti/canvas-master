@@ -2,7 +2,7 @@
   <div class="container">
     <div class="inner">
       <div class="preview">
-        <canvas ref="canvas" class="canvas" width="600" height="600"></canvas>
+        <canvas ref="canvas" class="canvas"></canvas>
       </div>
       <div class="controller">
         <img class="logo" src="~/assets/images/logo.png" alt="canvas" />
@@ -32,14 +32,28 @@
 </template>
 
 <script>
+const width = 600
+const height = 600
+
 export default {
   name: 'Main',
   data() {
     return {
-      canvas: null,
       context: null,
       color: 'ffffff',
       image: null
+    }
+  },
+  mounted() {
+    this.init()
+  },
+  methods: {
+    init() {
+      if (!this.$refs.canvas) return
+
+      this.$refs.canvas.width = width
+      this.$refs.canvas.height = height
+      this.context = this.$refs.canvas.getContext('2d')
     }
   }
 }
