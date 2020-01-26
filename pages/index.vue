@@ -10,20 +10,20 @@
           <dt class="controll-list-title">Paint</dt>
           <dd class="controll-list-body">
             color: # <input v-model="color" type="text" class="input" />
-            <button class="button">Paint</button>
+            <button @click="paint" class="button">Paint</button>
           </dd>
           <dt class="controll-list-title">Clear</dt>
           <dd class="controll-list-body">
-            <button class="button">Clear</button>
+            <button @click="clear" class="button">Clear</button>
           </dd>
           <dt class="controll-list-title">Place Image</dt>
           <dd class="controll-list-body">
             <input type="file" />
-            <button class="button">Clear</button>
+            <button @click="placeImage" class="button">Clear</button>
           </dd>
           <dt class="controll-list-title">Download</dt>
           <dd class="controll-list-body">
-            <button class="button">Download</button>
+            <button @click="download" class="button">Download</button>
           </dd>
         </dl>
       </div>
@@ -54,7 +54,11 @@ export default {
       this.$refs.canvas.width = width
       this.$refs.canvas.height = height
       this.context = this.$refs.canvas.getContext('2d')
-    }
+    },
+    paint() {},
+    clear() {},
+    placeImage() {},
+    download() {}
   }
 }
 </script>
