@@ -18,8 +18,7 @@
           </dd>
           <dt class="controll-list-title">Place Image</dt>
           <dd class="controll-list-body">
-            <input type="file" />
-            <button @click="placeImage" class="button">Clear</button>
+            <input @change="onChange" type="file" />
           </dd>
           <dt class="controll-list-title">Download</dt>
           <dd class="controll-list-body">
@@ -41,7 +40,8 @@ export default {
     return {
       context: null,
       color: 'ffffff',
-      image: null
+      image: null,
+      blobUrl: '#'
     }
   },
   mounted() {
@@ -55,10 +55,27 @@ export default {
       this.$refs.canvas.height = height
       this.context = this.$refs.canvas.getContext('2d')
     },
-    paint() {},
-    clear() {},
-    placeImage() {},
-    download() {}
+    paint() {
+      this.context.fillStyle = `#${this.color}`
+      this.context.fillRect(0, 0, width, height)
+    },
+    clear() {
+      this.context.clearRect(0, 0, width, height)
+    },
+    onChange(e) {
+      this.image = e.target.files[0]
+      const img = new Image()
+      img.onload = () => {
+        this.context.drawImage(img, 0, 0)
+      }
+      img.src = window.URL.createObjectURL(this.image)
+    },
+    download() {
+      const link = document.createElement('a')
+      link.href = this.$refs.canvas.toDataURL()
+      link.download = 'test.png'
+      link.click()
+    }
   }
 }
 </script>
